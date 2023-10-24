@@ -1,0 +1,64 @@
+unit Unit4;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Data.DB,
+  Vcl.Grids, Vcl.DBGrids;
+
+type
+  TForm4 = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Splitter1: TSplitter;
+    Bevel2: TBevel;
+    DBGrid1: TDBGrid;
+    Button4: TButton;
+    Label1: TLabel;
+    Edit1: TEdit;
+    procedure Button4Click(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
+  private
+    { Private declarations }
+
+  public
+    { Public declarations }
+  end;
+
+var
+  Form4: TForm4;
+
+implementation
+
+{$R *.dfm}
+
+uses
+  Unit1,Unit5;
+
+var
+  DataModule1: TDM;
+
+
+procedure TForm4.Button4Click(Sender: TObject);
+begin
+  Form4.Hide;
+  Form1.Show;
+end;
+
+
+
+
+
+procedure TForm4.Edit1Change(Sender: TObject);
+begin
+ if DataModule1 = nil then
+
+  DataModule1.ADOTable1.Locate('Название телефона', edit1.Text, [loCaseInsensitive, loPartialKey])
+end;
+
+
+
+end.
+

@@ -1,0 +1,58 @@
+unit Unit5;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB;
+
+type
+  TDM = class(TDataModule)
+    ADOConnection1: TADOConnection;
+    ADOTable1: TADOTable;
+    DataSource1: TDataSource;
+    ADOTable1IDтелефона: TAutoIncField;
+    ADOTable1Названиетелефона: TWideStringField;
+    ADOTable1ОС: TWideStringField;
+    ADOTable1Процессор: TWideStringField;
+    ADOTable1Оперативнаяпамять: TWideStringField;
+    ADOTable1Камера: TWideStringField;
+    ADOTable1Цена: TWideStringField;
+    ADOTable1Размерэкрана: TWideStringField;
+    ADOTable1Емкостьаккумулятора: TWideStringField;
+    procedure ADOTable1FilterRecord(DataSet: TDataSet; var Accept: Boolean);
+
+  private
+          { Private declarations }
+  public
+  ed:string;
+    { Public declarations }
+    procedure ConnectToDatabase;
+  end;
+
+
+ var
+  DM: TDM;
+  ed:string;
+  s:string;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+procedure TDM.ADOTable1FilterRecord(DataSet: TDataSet; var Accept: Boolean);
+begin
+ s:=Copy(DataSet['Название телефона'], 1 , length(ed));
+ Accept:=s=ed;
+end;
+
+procedure TDM.ConnectToDatabase;
+begin
+  ADOConnection1.Connected := True;
+end;
+
+
+ 
+end.
+

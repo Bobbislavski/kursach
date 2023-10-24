@@ -1,0 +1,84 @@
+unit Unit4;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Data.DB,
+  Vcl.Grids, Vcl.DBGrids;
+
+type
+  TForm4 = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Splitter1: TSplitter;
+    Label1: TLabel;
+    Edit1: TEdit;
+    Button1: TButton;
+    Bevel2: TBevel;
+    DBGrid1: TDBGrid;
+    Button4: TButton;
+    procedure Button4Click(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+
+  public
+    { Public declarations }
+  end;
+
+var
+  Form4: TForm4;
+
+implementation
+
+{$R *.dfm}
+
+uses
+  Unit1,Unit5;
+
+var
+  DataModule1: TDM;
+
+procedure TForm4.Button1Click(Sender: TObject);
+var i:integer;
+begin
+if dbgrid1.DataSource.DataSet.Locate('Название телефона',edit1.Text,[]) then
+showmessage('Apple iPhone 14,ID:1,IOS 16.5');
+if dbgrid1.DataSource.DataSet.Locate('Название телефона',edit1.Text,[]) then
+showmessage('Huawei Mate 50,ID:2,EMUI 13');
+if dbgrid1.DataSource.DataSet.Locate('Название телефона',edit1.Text,[]) then
+showmessage('Samsung Galaxy S23,ID:3,Android 13');
+if dbgrid1.DataSource.DataSet.Locate('Название телефона',edit1.Text,[]) then
+showmessage('Xiaomi Redmi ,ID:4,Android 12');
+if dbgrid1.DataSource.DataSet.Locate('Название телефона',edit1.Text,[]) then
+showmessage('OPPO A74,ID:5,Android 11');
+if dbgrid1.DataSource.DataSet.Locate('Название телефона',edit1.Text,[]) then
+showmessage('OPPO A74,ID:6,Смартфон Vivo Y35');
+if dbgrid1.DataSource.DataSet.Locate('Название телефона',edit1.Text,[]) then
+showmessage('Realme 10 Pro,ID:7,Android 13');
+if dbgrid1.DataSource.DataSet.Locate('Название телефона',edit1.Text,[]) then
+showmessage('HONOR 70,ID:8,Android 12');
+if dbgrid1.DataSource.DataSet.Locate('Название телефона',edit1.Text,[]) then
+showmessage('Asus ROG Phone 6,ID:9,Android 13');
+
+end;
+
+procedure TForm4.Button4Click(Sender: TObject);
+begin
+  Form4.Hide;
+  Form1.Show;
+end;
+
+
+procedure TForm4.Edit1Change(Sender: TObject);
+begin
+DataModule1.ADOTable1.Filtered:=false;
+DataModule1.ADOTable1.Filter:='Название телефона LIKE '+#39+Edit1.Text+'%'+#39;
+if length(edit1.text)>0 then DataModule1.ADOTable1.Filtered:=true;
+end;
+
+end.
+

@@ -1,0 +1,69 @@
+object Form6: TForm6
+  Left = 0
+  Top = 0
+  Caption = 'Form6'
+  ClientHeight = 545
+  ClientWidth = 882
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  TextHeight = 15
+  object label1: TLabel
+    Left = 224
+    Top = 264
+    Width = 177
+    Height = 73
+  end
+  object ProcessorComboBox: TComboBox
+    Left = 40
+    Top = 96
+    Width = 145
+    Height = 23
+    TabOrder = 0
+    Text = 'ProcessorComboBox'
+  end
+  object OSComboBox: TComboBox
+    Left = 256
+    Top = 96
+    Width = 145
+    Height = 23
+    TabOrder = 1
+    Text = 'ComboBox1'
+    Items.Strings = (
+      'ios'#11
+      'android')
+  end
+  object RAMComboBox: TComboBox
+    Left = 472
+    Top = 96
+    Width = 145
+    Height = 23
+    TabOrder = 2
+    Text = 'ComboBox1'
+    Items.Strings = (
+      '2 '#1043#1041#11
+      '4 '#1043#1041
+      '6 '#1043#1041
+      '8 '#1043#1041
+      '')
+  end
+  object ScreenComboBox: TComboBox
+    Left = 688
+    Top = 96
+    Width = 145
+    Height = 23
+    TabOrder = 3
+    Text = 'ComboBox1'
+  end
+  object BuildButton: TButton
+    Left = 688
+    Top = 200
+    Width = 145
+    Height = 33
+    Caption = #1057#1086#1073#1088#1072#1090#1100
+    TabOrder = 4
+  end
+end

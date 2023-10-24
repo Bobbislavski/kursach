@@ -1,0 +1,96 @@
+unit Unit6;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
+
+type
+    TForm6= class(TForm)
+    ProcessorComboBox: TComboBox;
+    OSComboBox: TComboBox;
+    RAMComboBox: TComboBox;
+    ScreenComboBox: TComboBox;
+    BuildButton: TButton;
+    label1:TLabel;
+    procedure FormCreate(Sender: TObject);
+    procedure BuildButtonClick(Sender: TObject);
+  private
+    procedure LoadComponentOptions;
+    function ValidateSelection: Boolean;
+  public
+    { Public declarations }
+  end;
+
+var
+  PhoneBuilderForm: TForm6;
+
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm6.FormCreate(Sender: TObject);
+begin
+  LoadComponentOptions;
+end;
+
+procedure TForm6.LoadComponentOptions;
+begin
+  ProcessorComboBox.Items.Add('Процессор 1');
+  ProcessorComboBox.Items.Add('Процессор 2');
+  ProcessorComboBox.Items.Add('Процессор 3');
+
+  OSComboBox.Items.Add('ОС 1');
+  OSComboBox.Items.Add('ОС 2');
+  OSComboBox.Items.Add('ОС 3');
+
+  RAMComboBox.Items.Add('2 ГБ');
+  RAMComboBox.Items.Add('4 ГБ');
+  RAMComboBox.Items.Add('8 ГБ');
+
+  ScreenComboBox.Items.Add('720p');
+  ScreenComboBox.Items.Add('1080p');
+  ScreenComboBox.Items.Add('2K');
+end;
+
+function TForm6.ValidateSelection: Boolean;
+begin
+  Result := True;
+  if ProcessorComboBox.ItemIndex = -1 then
+  begin
+    ShowMessage('Пожалуйста, выберите процессор.');
+    Result := False;
+  end
+  else if OSComboBox.ItemIndex = -1 then
+  begin
+    ShowMessage('Пожалуйста, выберите операционную систему.');
+    Result := False;
+  end
+  else if RAMComboBox.ItemIndex = -1 then
+  begin
+    ShowMessage('Пожалуйста, выберите объем оперативной памяти.');
+    Result := False;
+  end
+  else if ScreenComboBox.ItemIndex = -1 then
+  begin
+    ShowMessage('Пожалуйста, выберите разрешение экрана.');
+    Result := False;
+  end;
+end;
+
+procedure TForm6.BuildButtonClick(Sender: TObject);
+begin
+  if ValidateSelection then
+  begin
+      label1.Caption := 'Ваш идеальный телефон: ' +
+      ProcessorComboBox.Text + ', ' +
+      OSComboBox.Text + ', ' +
+      RAMComboBox.Text + ', ' +
+      ScreenComboBox.Text;
+  end;
+end;
+
+end.
+

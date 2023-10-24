@@ -1,0 +1,105 @@
+﻿unit Unit3;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
+  Vcl.Imaging.jpeg;
+
+type
+  TForm3 = class(TForm)
+    RadioGroup2: TRadioGroup;
+    Button1: TButton;
+    Button2: TButton;
+    Image1: TImage;
+    procedure Button1Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form3: TForm3;
+  f: text;
+  s: string;
+  Nvern, ball: integer;
+
+implementation
+
+{$R *.dfm}
+
+uses Unit1;
+
+procedure TForm3.Button1Click(Sender: TObject);
+begin
+  // Если выбран вариант ответа и не достигнут конец файла
+  if (RadioGroup2.ItemIndex > -1) and (not Eof(f)) then
+  begin
+    if RadioGroup2.ItemIndex = Nvern - 1 then
+      ball := ball + 1; // Если выбранный вариант соответствует номеру верного ответа, то балл прибавляется
+    RadioGroup2.Items.Clear; // Очищается поле для следующего вопроса
+    Repeat
+      readln(f, s);
+      if (s[1] = '-') or (Eof(f)) then
+        Break;
+      if s[1] = '*' then
+      begin
+        delete(s, 1, 1);
+        Nvern := StrToInt(s);
+      end
+      else
+        RadioGroup2.Items.Add(s);
+    until (s[1] = '-');
+    RadioGroup2.Caption := s;
+  end
+  // Если достигнут конец файла, то вопросы закончились
+  else if Eof(f) then
+  begin
+    CloseFile(f);
+    RadioGroup2.Visible := False;
+    Button1.Visible := False;
+    Button1.Enabled := False; // Кнопка становится недоступной в завершении проекта
+    Button2.Visible := True; // Показываем кнопку "Выйти на главную форму"
+    ShowMessage('Количество правильных ответов: ' + IntToStr(ball) + ' из 5');
+  end;
+end;
+
+procedure TForm3.Button2Click(Sender: TObject);
+begin
+  Form3.Hide;
+  Form1.Show;
+end;
+
+procedure TForm3.FormActivate(Sender: TObject);
+begin
+  Button1.Visible := True;
+  RadioGroup2.Visible := True;
+  AssignFile(f, 'тест.txt'); // Подключаем файл с вопросами
+
+  Reset(f); // Открываем файл для чтения
+  readln(f, s); // Считываем первую строку из файла
+  ball := 0; // Изначально количество баллов 0
+  repeat
+    if s[1] = '-' then
+    begin
+      delete(s, 1, 1);
+      RadioGroup2.Caption := s;
+    end
+    else if s[1] = '*' then
+    begin
+      delete(s, 1, 1);
+      Nvern := StrToInt(s);
+    end
+    else
+      RadioGroup2.Items.Add(s);
+    readln(f, s); // Считываем следующую строку из файла
+  until (s[1] = '-') or (Eof(f)); // Считывание и отправление вариантов ответов в RadiGroup до тех пор,
+                                  // пока не достигнут следующий вопрос или конец файла
+end;
+
+end.
+
